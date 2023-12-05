@@ -2,6 +2,8 @@
 const express = require("express");
 let app = express();
 const port = process.env.PORT || 3000;
+app.listen(port, () => console.log("Server listening."));
+
 app.use(express.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
