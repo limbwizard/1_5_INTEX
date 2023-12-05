@@ -1,11 +1,12 @@
 
-const express = require("express");
+let express = require("express");
 let app = express();
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log("Server listening."));
+let path = require("path");
 
-app.use(express.urlencoded({extended: true}));
+const port = process.env.PORT || 3000;
+
 app.set("view engine", "ejs");
+app.use(express.urlencoded({extended: true}));
 
 const knex = require("knex")({
     client: "pg",
@@ -18,3 +19,5 @@ const knex = require("knex")({
     ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
     }
 });
+
+app.listen(port, () => console.log("Server listening."));
