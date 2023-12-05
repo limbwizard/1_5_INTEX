@@ -1,0 +1,16 @@
+{
+  "name": "1_5_intex",
+  "version": "1.0.0",
+  "description": "INTEX website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sydney Dawson",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "knex": "^3.0.1",
+    "pg": "^8.11.3"
+  }
+}
