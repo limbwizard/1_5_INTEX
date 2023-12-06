@@ -52,13 +52,14 @@
           <!--Pulling data back by using %= 
             grab data from the table and must match exactly
             specifying column names from table in the .column_name-->
-           <td><%= surveyData[iCount].respondent_ID %></td>
-           <td><%= mycountry[iCount].popular_site %></td>
-           <td><%= mycountry[iCount].capital %></td>
-           <td><%= mycountry[iCount].population %></td>
-           <td style="text-align: center;"><%= mycountry[iCount].visited %></td>
+           <td><%= surveyData[iCount].respondent_id %></td>
+           <td><%= surveyData[iCount].platform_id %></td>
+           <td><%= mycountry[iCount].affiliation_id %></td>
+           <td><%= mycountry[iCount].main_id %></td>
+           <!--<td style="text-align: center;"><%= mycountry[iCount].visited %></td>
            <td style="text-align: center;"><%= mycountry[iCount].covid_level %></td>
            <td style="text-align: center;">
+            !-->
          </tr>
          <!-- end the for loop below
           no equal because we are not getting data-->
