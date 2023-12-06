@@ -209,33 +209,33 @@ app.post("/getSingleRecord"),
         const { singleRecord } = req.body;
     };
 
-app.get("/singleRecord"),
-    (req, res) => {
-        knex.select()
-            .from("main")
-            .leftJoin(
-                "organizationaffiliation",
-                "main.affiliation_id",
-                "organizationaffiliation.affiliation_id"
-            )
-            .leftJoin(
-                "respondent",
-                "main.respondent_id",
-                "respondent.respondent_id"
-            )
-            .leftJoin(
-                "socialmediaplatforms",
-                "main.platform_id",
-                "socialmediaplatforms.platform_id"
-            )
-            .where("main_id")
-            .then((result) => {
-                res.render("displaySurveyData", { surveyData: result });
-            })
-            .catch((error) => {
-                console.error(error);
-                res.status(500).send("Source Code Error");
-            });
-    };
+app.get("/singleRecord"), (req, res) => {
+    let mainKey = document.getElementById("singleRecord").value;
+    knex.select()
+    .from("main")
+    .leftJoin(
+        "organizationaffiliation",
+        "main.affiliation_id",
+        "organizationaffiliation.affiliation_id"
+    )
+    .leftJoin(
+        "respondent",
+        "main.respondent_id",
+        "respondent.respondent_id"
+    )
+    .leftJoin(
+        "socialmediaplatforms",
+        "main.platform_id",
+        "socialmediaplatforms.platform_id"
+    )
+    .where("main_id", mainKey)
+    .then((result) => {
+        res.render("displaySurveyData", { surveyData: result });
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).send("Source Code Error");
+    });
+}
 
 app.listen(port, () => console.log(`Server listening on port ${port}.`));
