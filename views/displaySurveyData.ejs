@@ -15,6 +15,7 @@
          <th style="text-align: left;">Platform ID</th>
          <th style="text-align: left;">Affiliation ID</th>
          <th style="text-align: left;">Main ID</th>
+         <!--
          <th style="text-align: left;">Timestamp</th>
          <th style="text-align: left;">Age</th>
          <th style="text-align: left;">Gender</th>
@@ -40,6 +41,7 @@
          <th style="text-align: left;">Affiliation Name</th>
          <th style="text-align: left;">Platform ID</th>
          <th style="text-align: left;">Platform Name</th>
+         !-->
          <th></th>
          <th></th>
        </tr>
@@ -54,10 +56,10 @@
             specifying column names from table in the .column_name-->
            <td><%= surveyData[iCount].respondent_id %></td>
            <td><%= surveyData[iCount].platform_id %></td>
-           <td><%= mycountry[iCount].affiliation_id %></td>
-           <td><%= mycountry[iCount].main_id %></td>
-           <!--<td style="text-align: center;"><%= mycountry[iCount].visited %></td>
-           <td style="text-align: center;"><%= mycountry[iCount].covid_level %></td>
+           <td><%= surveyData[iCount].affiliation_id %></td>
+           <td><%= surveyData[iCount].main_id %></td>
+           <!--<td style="text-align: center;"><//%= surveyData[iCount].visited %></td>
+           <td style="text-align: center;"><//%= surveyData[iCount].covid_level %></td>
            <td style="text-align: center;">
             !-->
          </tr>
