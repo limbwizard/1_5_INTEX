@@ -21,3 +21,9 @@ const knex = require("knex")({
 });
 
 app.listen(port, () => console.log("Server listening."));
+
+app.use(express.static(path.join(__dirname, 'views')));
+
+app.get('/', (req, res) => {
+    res.sendFile('/views/index.html', {root: __dirname});
+});

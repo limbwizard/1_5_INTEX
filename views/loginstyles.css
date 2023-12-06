@@ -10877,13 +10877,13 @@ input {
 }
 
 input[type="submit"] {
-  background-color: #4caf50;
+  background-color: #4169E1;
   color: #fff;
   cursor: pointer;
 }
 
 input[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: #0F52BA;
 }
 
 div {
