@@ -68,20 +68,20 @@ app.post("/submitSurvey", async (req, res) => {
                     gender: formData.gender,
                     relationship_status: formData.relationshipStatus,
                     occupation_status: formData.occupationStatus,
-                    avg_daily_sm_time: formData.avgDailySmTime,
-                    sm_no_purpose: formData.smNoPurpose,
-                    sm_distraction_when_busy: formData.smDistractionWhenBusy,
-                    sm_restless_not_using: formData.smRestlessNotUsing,
-                    distracted_easily: formData.distractedEasily,
-                    bothered_by_worries: formData.botheredByWorries,
-                    difficulty_concentrating: formData.difficultyConcentrating,
-                    sm_compare_to_successful: formData.smCompareToSuccessful,
-                    feel_about_compares: formData.feelAboutCompares,
-                    sm_validation_from_features:
-                        formData.smValidationFromFeatures,
-                    depressed_frequency: formData.depressedFrequency,
-                    interest_fluctuation: formData.interestFluctuation,
-                    sleep_issues: formData.sleepIssues,
+                    avg_daily_sm_time: formData.averageTimeOnSocialMedia, // Updated
+                    sm_no_purpose: formData.purposelessSocialMediaUse, // Updated
+                    sm_distraction_when_busy: formData.distractionBySocialMedia, // Updated
+                    sm_restless_not_using:
+                        formData.restlessnessWithoutSocialMedia, // Updated
+                    distracted_easily: formData.easeOfDistraction, // Updated
+                    bothered_by_worries: formData.botheredByWorries, // Updated
+                    difficulty_concentrating: formData.difficultyConcentrating, // Updated
+                    sm_compare_to_successful: formData.socialMediaComparisons, // Updated
+                    feel_about_compares: formData.feelingsAboutComparisons, // Updated
+                    sm_validation_from_features: formData.validationSeeking, // Updated
+                    depressed_frequency: formData.feelingsOfDepression, // Updated
+                    interest_fluctuation: formData.interestFluctuation, // Updated
+                    sleep_issues: formData.sleepIssues, // Updated
                     location: "Provo",
                 })
                 .returning("id");
