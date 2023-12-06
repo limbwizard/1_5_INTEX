@@ -63,6 +63,10 @@ function isAuthenticated(req, res, next) {
     res.redirect("/login"); // Redirect to the login page if not authenticated
 }
 
+app.get("/loggedin", isAuthenticated, (req, res) => {
+    res.render("loggedin"); // Render the 'loggedin.ejs' view
+});
+
 // Logout route
 app.get("/logout", (req, res) => {
     req.session.destroy(() => {
