@@ -200,8 +200,8 @@ app.get("/singleRecord"), (req, res) => {
         "socialmediaplatforms.platform_id"
     )
     .where("main_id", req.query.singleRecord)
-    .then((result) => {
-        res.render("displaySurveyData", { surveyData: result });
+    .then((single) => {
+        res.render("displaySingleRecord", { surveyData : single });
     })
     .catch((error) => {
         console.error(error);
