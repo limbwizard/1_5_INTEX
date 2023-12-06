@@ -48,11 +48,14 @@ app.get('/', (req, res) => {
 app.get('/surveyData', (req, res) => {
     knex.select()
         .from('main')
+        .leftJoin('organizationaffiliation', 'main.affiliation_id', 'organizationaffiliation.affiliation_id')
+        .leftJoin('respondent', 'main.respondent_id', 'respondent.respondent_id')
+        .leftJoin('socialmediaplatforms', 'main.platform_id', 'socialmediaplatforms.platform_id')
         .then(result => {
         res.render("displaySurveyData", {surveyData : result});
     })
     .catch(error => {
         console.error(error);
-        res.status(500).send('Internal Server Error'); // You might want to handle errors more gracefully
+        res.status(500).send('Source Code Error');
       });
 });
