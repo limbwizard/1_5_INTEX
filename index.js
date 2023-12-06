@@ -33,13 +33,15 @@ const knex = require("knex")({
 
 const port = process.env.PORT || 3000;
 
+// Login route
 app.post("/login", async (req, res) => {
     const { username, password } = req.body;
     try {
         const user = await knex("users").where({ username }).first();
         if (user && (await bcrypt.compare(password, user.password))) {
+            // Set the user ID in the session to indicate they are logged in
             req.session.userId = user.id;
-            res.json({ success: true, message: "Login successful" });
+            res.redirect("/protected-page"); // Redirect to the protected page after login
         } else {
             res.status(401).json({
                 success: false,
@@ -50,6 +52,23 @@ app.post("/login", async (req, res) => {
         console.error("Login error:", error);
         res.status(500).send("An error occurred during login.");
     }
+});
+
+// Middleware to protect routes
+function isAuthenticated(req, res, next) {
+    if (req.session.userId) {
+        return next();
+    }
+    res.redirect("/login"); // Redirect to the login page if not authenticated
+}
+
+
+
+// Logout route
+app.get('/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/login'); // Redirect to login page after logout
+    });
 });
 
 app.post("/submitSurvey", async (req, res) => {
@@ -159,7 +178,7 @@ app.get("/", (req, res) => {
     res.sendFile("/views/index.html", { root: __dirname });
 });
 
-app.get("/surveyData", (req, res) => {
+app.get("/surveyData", isAuthenticated, (req, res) => {
     knex.select()
         .from("main")
         .leftJoin(
