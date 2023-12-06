@@ -20,6 +20,32 @@ const knex = require("knex")({
     }
 });
 
+// Login
+
+// app.use(express.json());
+
+// const client = new Client({
+//     user: 'your_username',
+//     host: 'localhost',
+//     database: 'your_database',
+//     password: 'your_password',
+//     port: 5432,
+// });
+
+// client.connect();
+
+// app.post('/login', async (req, res) => {
+//     const { username, password } = req.body;
+
+//     const result = await client.query('SELECT * FROM users WHERE username = $1', [username]);
+
+//     if (result.rows.length === 1 && comparePassword(password, result.rows[0].password_hash)) {
+//         res.json({ success: true, message: 'Login successful' });
+//     } else {
+//         res.json({ success: false, message: 'Invalid username or password' });
+//     }
+// });
+
 app.listen(port, () => console.log("Server listening."));
 
 app.use(express.static(path.join(__dirname, 'views')));
