@@ -20,7 +20,66 @@
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="navbar-brand" href="#!">City of Provo</a>
-                <a class="btn btn-primary" href="/loginpage.html">Log In</a>
+                <div class="menuBar">
+                
+                
+               
+                <style>
+                    /* Add some basic styling for the dropdown menu */
+
+                    .button-container {
+                        margin-right: 25px;
+                    }
+
+
+                    .dropdown {
+                        position: relative;
+                        display: inline-block;
+                    }
+
+                    .dropdown-content {
+                        display: none;
+                        opacity: 0.65;
+                        position: absolute;
+                        background-color: #f9f9f9;
+                        min-width: 160px;
+                        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                        z-index: 1;
+                    }
+
+                    .dropdown:hover .dropdown-content {
+                        display: block;
+                    }
+
+                    .dropdown-content a {
+                        color: black;
+                        padding: 12px 16px;
+                        text-decoration: none;
+                        display: block;
+                    }
+
+                    .dropdown-content a:hover {
+                        background-color: #f1f1f1;
+                    }
+                </style>
+            </head>
+            <body>
+
+            <!-- Dropdown menu -->
+            <div 
+            
+            class="dropdown">
+                <button class="btn btn-primary button-container">Menu</button>
+                <div class="dropdown-content">
+                    <a href="#">Option 1</a>
+                    <a href="#">Option 2</a>
+                    <a href="#">Option 3</a>
+                </div>
+            </div>
+
+            <a class="btn btn-primary" href="/loginpage.html">Log In</a>
+        </div>
+
 
             </div>
         </nav>
