@@ -28,12 +28,12 @@ app.get('/', (req, res) => {
     res.sendFile('/views/index.html', {root: __dirname});
 });
 
-app.get("/surveydata", (req, res) => {
-    knex.select().from("main").then(main_id => {
+app.get('/surveyData', (req, res) => {
+    knex.select().from("main").then(main => {
         //draw an HTML form back on the browser
         //we want to display a view; the HTML page
         //this calls the HTML file we are going to make somewhere
         //create new variable myCountry and pass a variable from the database table; called country
-        res.render("displaySurveyData", {surveyData : main_id});
+        res.render("displaySurveyData.ejs", {surveyData : main});
     })
 });
