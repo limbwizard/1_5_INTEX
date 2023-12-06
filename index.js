@@ -11,12 +11,12 @@ app.use(express.urlencoded({extended: true}));
 const knex = require("knex")({
     client: "pg",
     connection: {
-    host: process.env.RDS_HOSTNAME || "localhost",
-    user: process.env.RDS_USERNAME || "intex",
-    password: process.env.RDS_PASSWORD || "intexroot15",
-    database: process.env.RDS_DB_NAME || "MentalHealthSM",
-    port: process.env.RDS_PORT || 5432,
-    ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
+        host: process.env.RDS_HOSTNAME || "awseb-e-2ftq27q9ev-stack-awsebrdsdatabase-d0n9mxa96fyn.cjm56v7vaaku.us-east-1.rds.amazonaws.com",
+        user: process.env.RDS_USERNAME || "intex",
+        password: process.env.RDS_PASSWORD || "intexroot15",
+        database: process.env.RDS_DB_NAME || "ebdb",
+        port: process.env.RDS_PORT || 5432,
+        ssl: process.env.DB_SSL ? {rejectUnauthorized: false} : false
     }
 });
 
@@ -29,11 +29,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/surveyData', (req, res) => {
-    knex.select().from("main").then(main => {
-        //draw an HTML form back on the browser
-        //we want to display a view; the HTML page
-        //this calls the HTML file we are going to make somewhere
-        //create new variable myCountry and pass a variable from the database table; called country
-        res.render("displaySurveyData.ejs", {surveyData : main});
+    knex.select()
+        .from('main')
+        .then(result => {
+        res.render("displaySurveyData", {surveyData : result});
     })
+    .catch(error => {
+        console.error(error);
+        res.status(500).send('Internal Server Error'); // You might want to handle errors more gracefully
+      });
 });
