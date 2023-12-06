@@ -210,6 +210,7 @@ app.post("/getSingleRecord"), (req, res) => {
 }
 
 app.get("/singleRecord"), (req, res) => {
+    let mainKey = document.getElementById("singleRecord").value;
     knex.select()
     .from("main")
     .leftJoin(
@@ -227,7 +228,7 @@ app.get("/singleRecord"), (req, res) => {
         "main.platform_id",
         "socialmediaplatforms.platform_id"
     )
-    .where("main_id", )
+    .where("main_id", mainKey)
     .then((result) => {
         res.render("displaySurveyData", { surveyData: result });
     })
