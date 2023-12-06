@@ -6,9 +6,6 @@ let path = require("path");
 const port = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
-
-app.engine('ejs', require('ejs').__express);
-
 app.use(express.urlencoded({extended: true}));
 
 const knex = require("knex")({
