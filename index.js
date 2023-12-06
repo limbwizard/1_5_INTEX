@@ -1,7 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
-const moment = require('moment');
+const moment = require("moment");
 const app = express();
 const path = require("path");
 
@@ -73,43 +73,20 @@ app.get("/logout", (req, res) => {
 app.post("/submitSurvey", async (req, res) => {
     const formData = req.body;
 
-    // Validate the necessary fields
-    const requiredFields = [
-        "age",
-        "gender",
-        "relationshipStatus",
-        "occupationStatus",
-        "averageTimeOnSocialMedia",
-        "purposelessSocialMediaUse",
-        "distractionBySocialMedia",
-        "easeOfDistraction",
-        "botheredByWorries",
-        "socialMediaComparisons",
-        "validationSeeking",
-        "feelingsOfDepression",
-        "interestFluctuation",
-        "sleepIssues",
-    ];
-
-    for (const field of requiredFields) {
-        if (!formData[field]) {
-            return res.status(400).send(`Missing required field: ${field}`);
-        }
-    }
-
     try {
         await knex.transaction(async (trx) => {
             // Insert data into 'respondent' table
             const [respondentId] = await trx("respondent")
                 .insert({
-                    timestamp: moment(new Date()).format('M/D/YYYY HH:mm:ss'),
+                    timestamp: moment(new Date()).format("M/D/YYYY HH:mm:ss"),
                     age: formData.age,
                     gender: formData.gender,
                     relationship_status: formData.relationshipStatus,
                     occupation_status: formData.occupationStatus,
+                    use_sm: formData.useSocialMedia,
                     avg_daily_sm_time: formData.averageTimeOnSocialMedia,
                     sm_no_purpose: formData.purposelessSocialMediaUse,
-                    sm_distraction_when_busy: formData.distractionBySocialMedia,
+                    sm_distracted_when_busy: formData.distractionBySocialMedia,
                     sm_restless_not_using:
                         formData.restlessnessWithoutSocialMedia,
                     distracted_easily: formData.easeOfDistraction,
@@ -209,33 +186,34 @@ app.post("/getSingleRecord"),
         const { singleRecord } = req.body;
     };
 
-app.get("/singleRecord"), (req, res) => {
-    let mainKey = document.getElementById("singleRecord").value;
-    knex.select()
-    .from("main")
-    .leftJoin(
-        "organizationaffiliation",
-        "main.affiliation_id",
-        "organizationaffiliation.affiliation_id"
-    )
-    .leftJoin(
-        "respondent",
-        "main.respondent_id",
-        "respondent.respondent_id"
-    )
-    .leftJoin(
-        "socialmediaplatforms",
-        "main.platform_id",
-        "socialmediaplatforms.platform_id"
-    )
-    .where("main_id", mainKey)
-    .then((result) => {
-        res.render("displaySurveyData", { surveyData: result });
-    })
-    .catch((error) => {
-        console.error(error);
-        res.status(500).send("Source Code Error");
-    });
-}
+app.get("/singleRecord"),
+    (req, res) => {
+        let mainKey = document.getElementById("singleRecord").value;
+        knex.select()
+            .from("main")
+            .leftJoin(
+                "organizationaffiliation",
+                "main.affiliation_id",
+                "organizationaffiliation.affiliation_id"
+            )
+            .leftJoin(
+                "respondent",
+                "main.respondent_id",
+                "respondent.respondent_id"
+            )
+            .leftJoin(
+                "socialmediaplatforms",
+                "main.platform_id",
+                "socialmediaplatforms.platform_id"
+            )
+            .where("main_id", mainKey)
+            .then((result) => {
+                res.render("displaySurveyData", { surveyData: result });
+            })
+            .catch((error) => {
+                console.error(error);
+                res.status(500).send("Source Code Error");
+            });
+    };
 
 app.listen(port, () => console.log(`Server listening on port ${port}.`));
