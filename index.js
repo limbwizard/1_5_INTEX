@@ -21,16 +21,7 @@ const knex = require("knex")({
 });
 
 // Login
-
 // app.use(express.json());
-
-// const client = new Client({
-//     user: 'your_username',
-//     host: 'localhost',
-//     database: 'your_database',
-//     password: 'your_password',
-//     port: 5432,
-// });
 
 // client.connect();
 
@@ -55,7 +46,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/surveyData', (req, res) => {
-    knex.select('main_id')
+    knex.select()
         .from('main')
         .then(result => {
         res.render("displaySurveyData", {surveyData : result});
