@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended: true}));
 const knex = require("knex")({
     client: "pg",
     connection: {
-        host: process.env.RDS_HOSTNAME || "awseb-e-2ftq27q9ev-stack-awsebrdsdatabase-d0n9mxa96fyn.cjm56v7vaaku.us-east-1.rds.amazonaws.com",
+        host: process.env.RDS_HOSTNAME || "localhost",
         user: process.env.RDS_USERNAME || "intex",
         password: process.env.RDS_PASSWORD || "intexroot15",
         database: process.env.RDS_DB_NAME || "ebdb",
@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/surveyData', (req, res) => {
-    knex.select()
+    knex.select('main_id')
         .from('main')
         .then(result => {
         res.render("displaySurveyData", {surveyData : result});
