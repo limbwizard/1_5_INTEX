@@ -1,6 +1,7 @@
 const express = require("express");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
+const moment = require('moment');
 const app = express();
 const path = require("path");
 
@@ -62,112 +63,113 @@ function isAuthenticated(req, res, next) {
     res.redirect("/login"); // Redirect to the login page if not authenticated
 }
 
-
-
 // Logout route
-app.get('/logout', (req, res) => {
+app.get("/logout", (req, res) => {
     req.session.destroy(() => {
-        res.redirect('/login'); // Redirect to login page after logout
+        res.redirect("/login"); // Redirect to login page after logout
     });
 });
 
 app.post("/submitSurvey", async (req, res) => {
     const formData = req.body;
-    const platformNames = formData["socialMediaPlatforms[]"] || [];
-    const affiliationName = formData.affiliatedOrganizations;
+
+    // Validate the necessary fields
+    const requiredFields = [
+        "age",
+        "gender",
+        "relationshipStatus",
+        "occupationStatus",
+        "averageTimeOnSocialMedia",
+        "purposelessSocialMediaUse",
+        "distractionBySocialMedia",
+        "easeOfDistraction",
+        "botheredByWorries",
+        "socialMediaComparisons",
+        "validationSeeking",
+        "feelingsOfDepression",
+        "interestFluctuation",
+        "sleepIssues",
+    ];
+
+    for (const field of requiredFields) {
+        if (!formData[field]) {
+            return res.status(400).send(`Missing required field: ${field}`);
+        }
+    }
 
     try {
         await knex.transaction(async (trx) => {
+            // Insert data into 'respondent' table
             const [respondentId] = await trx("respondent")
                 .insert({
-                    timestamp: new Date().toLocaleString("en-US", {
-                        timeZone: "America/Denver",
-                    }),
+                    timestamp: moment(new Date()).format('M/D/YYYY HH:mm:ss'),
                     age: formData.age,
                     gender: formData.gender,
                     relationship_status: formData.relationshipStatus,
                     occupation_status: formData.occupationStatus,
-                    avg_daily_sm_time: formData.averageTimeOnSocialMedia, // Assuming this is stored as a string
-                    sm_no_purpose: parseInt(
-                        formData.purposelessSocialMediaUse,
-                        10
-                    ),
-                    sm_distraction_when_busy: parseInt(
-                        formData.distractionBySocialMedia,
-                        10
-                    ),
-                    sm_restless_not_using: parseInt(
+                    avg_daily_sm_time: formData.averageTimeOnSocialMedia,
+                    sm_no_purpose: formData.purposelessSocialMediaUse,
+                    sm_distraction_when_busy: formData.distractionBySocialMedia,
+                    sm_restless_not_using:
                         formData.restlessnessWithoutSocialMedia,
-                        10
-                    ),
-                    distracted_easily: parseInt(formData.easeOfDistraction, 10),
-                    bothered_by_worries: parseInt(
-                        formData.botheredByWorries,
-                        10
-                    ),
-                    difficulty_concentrating: parseInt(
-                        formData.difficultyConcentrating,
-                        10
-                    ),
-                    sm_compare_to_successful: parseInt(
-                        formData.socialMediaComparisons,
-                        10
-                    ),
-                    feel_about_compares: parseInt(
-                        formData.feelingsAboutComparisons,
-                        10
-                    ),
+                    distracted_easily: formData.easeOfDistraction,
+                    bothered_by_worries: formData.botheredByWorries,
+                    difficulty_concentrating: formData.difficultyConcentrating,
+                    sm_compare_to_successful: formData.socialMediaComparisons,
+                    feel_about_compares: formData.feelingsAboutComparisons,
                     sm_validation_from_features: formData.validationSeeking,
-                    depressed_frequency: parseInt(
-                        formData.feelingsOfDepression,
-                        10
-                    ),
-                    interest_fluctuation: parseInt(
-                        formData.interestFluctuation,
-                        10
-                    ),
-                    sleep_issues: parseInt(formData.sleepIssues, 10),
+                    depressed_frequency: formData.feelingsOfDepression,
+                    interest_fluctuation: formData.interestFluctuation,
+                    sleep_issues: formData.sleepIssues,
                     location: "Provo",
                 })
-                .returning("id");
+                .returning("respondent_id");
 
+            // Handle organization affiliation if provided
             let affiliationId = null;
-            if (affiliationName) {
-                const affiliation = await trx("organizationaffiliation")
-                    .select("affiliation_id")
-                    .where("affiliation_name", affiliationName)
+            if (formData.affiliatedOrganizations) {
+                const affiliationRecord = await trx("organizationaffiliation")
+                    .where({
+                        affiliation_name: formData.affiliatedOrganizations,
+                    })
                     .first();
-                affiliationId = affiliation ? affiliation.affiliation_id : null;
+
+                affiliationId = affiliationRecord
+                    ? affiliationRecord.affiliation_id
+                    : null;
             }
 
+            // Insert data into 'main' table with social media platforms
+            const platformNames = formData["socialMediaPlatforms[]"] || [];
             if (platformNames.length > 0) {
                 for (const platformName of platformNames) {
-                    const platform = await trx("socialmediaplatforms")
-                        .select("platform_id")
-                        .where("platform_name", platformName)
+                    const platformRecord = await trx("socialmediaplatforms")
+                        .where({ platform_name: platformName })
                         .first();
 
-                    if (platform) {
+                    if (platformRecord) {
                         await trx("main").insert({
                             respondent_id: respondentId,
-                            platform_id: platform.platform_id,
+                            platform_id: platformRecord.platform_id,
                             affiliation_id: affiliationId,
                         });
                     }
                 }
             } else {
+                // Even if no platforms are provided, insert a record into 'main'
                 await trx("main").insert({
                     respondent_id: respondentId,
                     platform_id: null,
                     affiliation_id: affiliationId,
                 });
             }
+
             await trx.commit();
             res.status(200).send("Survey data submitted successfully!");
         });
     } catch (error) {
         console.error("Transaction failed:", error);
-        res.status(500).send("Failed to submit survey data.");
+        res.status(500).send("Failed to submit survey data. Please try again.");
     }
 });
 
@@ -202,36 +204,38 @@ app.get("/surveyData", (req, res) => {
         });
 });
 
-app.post("/getSingleRecord"), (req, res) => {
-    const { singleRecord } = req.body;
-}
+app.post("/getSingleRecord"),
+    (req, res) => {
+        const { singleRecord } = req.body;
+    };
 
-app.get("/singleRecord"), (req, res) => {
-    knex.select()
-    .from("main")
-    .leftJoin(
-        "organizationaffiliation",
-        "main.affiliation_id",
-        "organizationaffiliation.affiliation_id"
-    )
-    .leftJoin(
-        "respondent",
-        "main.respondent_id",
-        "respondent.respondent_id"
-    )
-    .leftJoin(
-        "socialmediaplatforms",
-        "main.platform_id",
-        "socialmediaplatforms.platform_id"
-    )
-    .where("main_id", )
-    .then((result) => {
-        res.render("displaySurveyData", { surveyData: result });
-    })
-    .catch((error) => {
-        console.error(error);
-        res.status(500).send("Source Code Error");
-    });
-}
+app.get("/singleRecord"),
+    (req, res) => {
+        knex.select()
+            .from("main")
+            .leftJoin(
+                "organizationaffiliation",
+                "main.affiliation_id",
+                "organizationaffiliation.affiliation_id"
+            )
+            .leftJoin(
+                "respondent",
+                "main.respondent_id",
+                "respondent.respondent_id"
+            )
+            .leftJoin(
+                "socialmediaplatforms",
+                "main.platform_id",
+                "socialmediaplatforms.platform_id"
+            )
+            .where("main_id")
+            .then((result) => {
+                res.render("displaySurveyData", { surveyData: result });
+            })
+            .catch((error) => {
+                console.error(error);
+                res.status(500).send("Source Code Error");
+            });
+    };
 
 app.listen(port, () => console.log(`Server listening on port ${port}.`));
