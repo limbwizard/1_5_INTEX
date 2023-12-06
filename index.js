@@ -178,7 +178,7 @@ app.get("/", (req, res) => {
     res.sendFile("/views/index.html", { root: __dirname });
 });
 
-app.get("/surveyData", isAuthenticated, (req, res) => {
+app.get("/surveyData", (req, res) => {
     knex.select()
         .from("main")
         .leftJoin(
