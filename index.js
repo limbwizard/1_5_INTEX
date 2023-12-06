@@ -117,10 +117,7 @@ app.post("/submitSurvey", async (req, res) => {
                         formData.feelingsAboutComparisons,
                         10
                     ),
-                    sm_validation_from_features: parseInt(
-                        formData.validationSeeking,
-                        10
-                    ),
+                    sm_validation_from_features: formData.validationSeeking,
                     depressed_frequency: parseInt(
                         formData.feelingsOfDepression,
                         10
