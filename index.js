@@ -68,20 +68,49 @@ app.post("/submitSurvey", async (req, res) => {
                     gender: formData.gender,
                     relationship_status: formData.relationshipStatus,
                     occupation_status: formData.occupationStatus,
-                    avg_daily_sm_time: formData.averageTimeOnSocialMedia, // Updated
-                    sm_no_purpose: formData.purposelessSocialMediaUse, // Updated
-                    sm_distraction_when_busy: formData.distractionBySocialMedia, // Updated
-                    sm_restless_not_using:
-                        formData.restlessnessWithoutSocialMedia, // Updated
-                    distracted_easily: formData.easeOfDistraction, // Updated
-                    bothered_by_worries: formData.botheredByWorries, // Updated
-                    difficulty_concentrating: formData.difficultyConcentrating, // Updated
-                    sm_compare_to_successful: formData.socialMediaComparisons, // Updated
-                    feel_about_compares: formData.feelingsAboutComparisons, // Updated
-                    sm_validation_from_features: formData.validationSeeking, // Updated
-                    depressed_frequency: formData.feelingsOfDepression, // Updated
-                    interest_fluctuation: formData.interestFluctuation, // Updated
-                    sleep_issues: formData.sleepIssues, // Updated
+                    avg_daily_sm_time: formData.averageTimeOnSocialMedia, // Assuming this is stored as a string
+                    sm_no_purpose: parseInt(
+                        formData.purposelessSocialMediaUse,
+                        10
+                    ),
+                    sm_distraction_when_busy: parseInt(
+                        formData.distractionBySocialMedia,
+                        10
+                    ),
+                    sm_restless_not_using: parseInt(
+                        formData.restlessnessWithoutSocialMedia,
+                        10
+                    ),
+                    distracted_easily: parseInt(formData.easeOfDistraction, 10),
+                    bothered_by_worries: parseInt(
+                        formData.botheredByWorries,
+                        10
+                    ),
+                    difficulty_concentrating: parseInt(
+                        formData.difficultyConcentrating,
+                        10
+                    ),
+                    sm_compare_to_successful: parseInt(
+                        formData.socialMediaComparisons,
+                        10
+                    ),
+                    feel_about_compares: parseInt(
+                        formData.feelingsAboutComparisons,
+                        10
+                    ),
+                    sm_validation_from_features: parseInt(
+                        formData.validationSeeking,
+                        10
+                    ),
+                    depressed_frequency: parseInt(
+                        formData.feelingsOfDepression,
+                        10
+                    ),
+                    interest_fluctuation: parseInt(
+                        formData.interestFluctuation,
+                        10
+                    ),
+                    sleep_issues: parseInt(formData.sleepIssues, 10),
                     location: "Provo",
                 })
                 .returning("id");
