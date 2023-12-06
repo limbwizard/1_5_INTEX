@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Survey Data</title>
+</head>
+<body>
+   <label><b>Survey Data:</b></label>
+   <br><br>
+   <table style="width: 100%; background-color: antiquewhite; border: 1px solid black;">
+     <thead style="background-color: cornflowerblue; color: white;">
+       <tr>
+         <th style="text-align: left;">Respondent ID</th>
+         <th style="text-align: left;">Platform ID</th>
+         <th style="text-align: left;">Affiliation ID</th>
+         <th style="text-align: left;">Main ID</th>
+         <th style="text-align: left;">Timestamp</th>
+         <th style="text-align: left;">Age</th>
+         <th style="text-align: left;">Gender</th>
+         <th style="text-align: left;">Relationship Status</th>
+         <th style="text-align: left;">Occupation Status</th>
+         <th style="text-align: left;"></th>
+         <th style="text-align: left;">Avg Daily Social Media Time</th>
+         <th style="text-align: left;"></th>
+         <th></th>
+         <th></th>
+       </tr>
+     </thead>
+     <tbody style="font-family: Arial; font-size: 9pt;">
+      <!--Create a dataset for output dynamically below
+        have to use the % for using JS and not getting data-->
+      <% for (let iCount = 0; iCount < mycountry.length; iCount++) { %>
+         <tr>
+          <!--Pulling data back by using %= 
+            grab data from the table and must match exactly
+            specifying column names from table in the .column_name-->
+           <td><%= mycountry[iCount].country_name %></td>
+           <td><%= mycountry[iCount].popular_site %></td>
+           <td><%= mycountry[iCount].capital %></td>
+           <td><%= mycountry[iCount].population %></td>
+           <td style="text-align: center;"><%= mycountry[iCount].visited %></td>
+           <td style="text-align: center;"><%= mycountry[iCount].covid_level %></td>
+           <td style="text-align: center;">
+              <!-- call editCountry route dynamically usign a GET method
+                calls back to index.js file to look for the editCountry method
+                passing country_id as a parameter to the route-->
+             <form action="/editCountry/<%= mycountry[iCount].country_id %>" method="GET">
+               <button type="submit">Edit</button>
+             </form>
+           </td>
+           <td style="text-align: center;">
+             <form action="/deleteCountry/<%= mycountry[iCount].country_id %>" method="POST">
+               <button type="submit">Delete</button>
+             </form>
+           </td>
+         </tr>
+         <!-- end the for loop below
+          no equal because we are not getting data-->
+      <% } %>
+     </tbody>
+   </table>
+   <br><br>
+   <form action="/addCountry" method="GET">
+     <button type="submit">Add Country</button>
+   </form>
+</body>
+</html>
