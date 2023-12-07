@@ -63,10 +63,6 @@ function isAuthenticated(req, res, next) {
     res.redirect("/login"); // Redirect to the login page if not authenticated
 }
 
-app.get("/loggedin", isAuthenticated, (req, res) => {
-    res.render("loggedin"); // Render the 'loggedin.ejs' view
-});
-
 // Logout route
 app.get("/logout", (req, res) => {
     req.session.destroy(() => {
@@ -188,7 +184,7 @@ app.get("/surveyData", (req, res) => {
         });
 });
 
-app.get("/singleRecord", (req, res) => {
+app.get("/singleRecord"), (req, res) => {
     knex.select()
     .from("main")
     .leftJoin(
@@ -207,12 +203,13 @@ app.get("/singleRecord", (req, res) => {
         "socialmediaplatforms.platform_id"
     )
     .where("main_id", req.query.singleRecord)
-    .then(result => {
-        res.render("displaySingleRecord", { surveyData : result });
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json({err});
+    .then((single) => {
+        res.render("displaySingleRecord", { surveyData : single });
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).send("Source Code Error");
     });
-});
+}
 
 app.listen(port, () => console.log(`Server listening on port ${port}.`));
