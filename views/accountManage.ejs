@@ -72,7 +72,7 @@
                             <button style="border: none; background: none; color: #222;" type="submit">Survey</button>
                         </form>
                     </a>
-                    <a><button style="background: none; border: none; color: #222;" type="button" href="dashboard.html">Dashboard</button></a>
+                    <a><button type="button" href="dashboard.html">Dashboard</button></a>
                     <a>
                         <form action="/surveyData" method="GET">
                             <button style="background: none; border: none; color: #222;" type="submit">Data Report</button>
@@ -145,7 +145,7 @@
 
     <!-- Form for updating an existing account -->
     <h2>Update Account</h2>
-    <form class="customform" action="/updateUser" method="post">
+    <form class="customform"action="/updateUser" method="post">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="newPassword" placeholder="New Password" required>
         <button type="submit">Update Account</button>

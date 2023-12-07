@@ -66,13 +66,14 @@
         <!-- Dropdown menu -->
         <div class="dropdown">
             <button class="btn btn-primary button-container">Menu</button>
-            <a>
-                <form action="/survey" method="GET">
-                    <button style="border: none; background: none; color: #222;" type="submit">Survey</button>
-                </form>
-            </a>
-            <a><button style="background: none; border: none; color: #222;" type="button" href="dashboard.html">Dashboard</button></a>
-        </div>    
+            <div class="dropdown-content">
+                <a>
+                    <form action="/survey" method="GET">
+                        <button style="border: none; background: none; color: #222;" type="submit">Survey</button>
+                    </form>
+                </a>
+                <a href="dashboard.html">Dashboard</a>
+            </div>
         </div>
         <a class="btn btn-primary" href="/loginpage.html">Log In</a>
     </div>
@@ -156,13 +157,13 @@
         <input type="number" id="age" min="10" max="100" name="age" required>
 
         <!-- Gender -->
-        <label for="gender"><b>Gender:</b></label>
+        <!-- <label for="gender"><b>Gender:</b></label>
         <select id="gender" name="gender" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
-        </select>
+        </select> -->
 
         <!-- Relationship status -->
         <!-- <label for="relationship_status"><b>Relationship status:</b></label>
