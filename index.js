@@ -30,7 +30,7 @@ app.get("/survey", (req, res) => {
 
 app.post("/submitSurvey", (req, res) => {
      knex("ebdb").insert({
-                    timestamp: moment(new Date()).format("M/D/YYYY HH:mm:ss"),
+                    timestamp: "2" /*moment(new Date()).format("M/D/YYYY HH:mm:ss")*/,
                     age: req.body.age,
                     gender: req.body.gender,
                     relationship_status: req.body.relationship_status,
