@@ -68,11 +68,17 @@
             class="dropdown">
                 <button class="btn btn-primary button-container">Menu</button>
                 <div class="dropdown-content">
-                    <a href="survey.html">Survey</a>
+                    <a>
+                        <form action="/survey" method="GET">
+                            <button style="border: none; background: none;" type="submit">Survey</button>
+                        </form>
+                    </a>
                     <a href="dashboard.html">Dashboard</a>
-                    <form action="/surveyData" method="GET">
-                        <button style="background: none; border: none;" type="submit">Data Report</button>
-                    </form>
+                    <a>
+                        <form action="/surveyData" method="GET">
+                            <button style="background: none; border: none;" type="submit">Data Report</button>
+                        </form>
+                    </a>
                 </div>         
             </div>
         </div>
