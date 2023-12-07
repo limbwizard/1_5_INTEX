@@ -86,4 +86,9 @@ app.get("/singleRecord", (req, res) => {
         });
 });
 
+//login check
+app.get("/login", (req, res) => {
+    res.render("accountManage");
+});
+
 app.listen(port, () => console.log(`Server listening on port ${port}.`));
