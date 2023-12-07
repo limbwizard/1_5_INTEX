@@ -120,8 +120,14 @@ app.get("/login", (req, res) => {
         .where("username", req.query.username)
         .where("password", req.query.password)
         .then((result) => {
-            res.render("accountManage");
+            if (result.length > 0) {
+                res.render("accountManage");
+            }
+            else {
+                res.send("Incorrect username/password.");
+            }
         })
 });
 
+//(req.query.username == username) && (req.query.password == password)
 app.listen(port, () => console.log(`Server listening on port ${port}.`));
