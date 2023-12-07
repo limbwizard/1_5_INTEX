@@ -6,16 +6,17 @@
    <title>Survey Data</title>
    <br>
    <br>
-    <form action="/singleRecord" method="GET">
-      <!--Search for single record-->
-      <label for="singleRecord"><b>Select a record to search for by Main ID:</b></label>
-      <input type="number" id="singleRecord" name="singleRecord" required>
-      <button type="submit">Search</button>
-    </form>
 </head>
 <body>
    <label><b>Survey Data</b></label>
    <br><br>
+   <form action="/singleRecord" method="GET">
+    <!--Search for single record-->
+    <label for="singleRecord"><b>Select a record to search for by Main ID:</b></label>
+    <input type="number" id="singleRecord" name="singleRecord" required>
+    <button type="submit">Search</button>
+  </form>
+  <br><br>
    <table style="width: 100%; background-color: lightgray; border: 1px solid black;">
      <thead style="background-color: royalblue; color: white;">
        <tr>
