@@ -72,11 +72,7 @@
                             <button style="border: none; background: none; color: #222;" type="submit">Survey</button>
                         </form>
                     </a>
-                    <a>
-                        <form>
-                            <button type="button" href="dashboard.html">Dashboard</button>
-                        </form>
-                    </a>
+                    <a><button type="button" href="dashboard.html">Dashboard</button></a>
                     <a>
                         <form action="/surveyData" method="GET">
                             <button style="background: none; border: none; color: #222;" type="submit">Data Report</button>
@@ -106,7 +102,7 @@
                 margin-top: 40px;
             }
         
-            form {
+            .customform {
                 max-width: 400px;
                 margin: 20px auto;
                 background-color: #fff;
@@ -140,7 +136,7 @@
 
     <!-- Form for creating a new account -->
     <h2>Create Account</h2>
-    <form action="/createUser" method="post">
+    <form class="customform" action="/createUser" method="post">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
         <button type="submit">Create Account</button>
@@ -149,7 +145,7 @@
 
     <!-- Form for updating an existing account -->
     <h2>Update Account</h2>
-    <form action="/updateUser" method="post">
+    <form class="customform" action="/updateUser" method="post">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="newPassword" placeholder="New Password" required>
         <button type="submit">Update Account</button>
