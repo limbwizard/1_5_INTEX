@@ -114,9 +114,14 @@ app.get("/singleRecord", (req, res) => {
         });
 });
 
-//login check
 app.get("/login", (req, res) => {
-    res.render("accountManage");
+    knex.select()
+        .from("users")
+        .where("username", req.query.username)
+        .where("password", req.query.password)
+        .then((result) => {
+            res.render("accountManage");
+        })
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}.`));
