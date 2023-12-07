@@ -59,6 +59,10 @@ app.get('/loggedin', isAuthenticated, (req, res) => {
     res.render('loggedin', { username: req.session.username }); // Pass necessary data
 });
 
+// Survey page
+app.get("/survey", (req, res) => {
+    res.render("survey"); // Render the 'survey.ejs' view
+});
 
 // Middleware to protect routes
 function isAuthenticated(req, res, next) {
