@@ -42,7 +42,7 @@ app.post("/login", async (req, res) => {
         if (user && (await bcrypt.compare(password, user.password))) {
             // Set the user ID in the session to indicate they are logged in
             req.session.userId = user.id;
-            res.redirect("/protected-page"); // Redirect to the protected page after login
+            res.redirect("/loggedin"); // Redirect to the protected page after login
         } else {
             res.status(401).json({
                 success: false,
@@ -54,6 +54,11 @@ app.post("/login", async (req, res) => {
         res.status(500).send("An error occurred during login.");
     }
 });
+
+app.get('/loggedin', isAuthenticated, (req, res) => {
+    res.render('loggedin', { username: req.session.username }); // Pass necessary data
+});
+
 
 // Middleware to protect routes
 function isAuthenticated(req, res, next) {
@@ -136,6 +141,64 @@ async function getPlatformIds(trx, platformIds) {
         return validIds;
     }, []);
 }
+
+
+app.post('/createUser', isAuthenticated, async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Insert the new user into the database
+        await knex('users').insert({
+            username,
+            password: hashedPassword
+        });
+
+        res.redirect('/accountmanage'); // Redirect to the account management page or to a success message
+    } catch (error) {
+        console.error('Create User Error:', error);
+        res.status(500).send('Error creating user');
+    }
+});
+
+app.post('/updateUser', isAuthenticated, async (req, res) => {
+    const { username, newPassword } = req.body;
+
+    try {
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update the user's password in the database
+        await knex('users')
+              .where({ username })
+              .update({
+                  password: hashedPassword
+              });
+
+        res.redirect('/accountmanage'); // Redirect to account management page or a success message
+    } catch (error) {
+        console.error('Update User Error:', error);
+        res.status(500).send('Error updating user');
+    }
+});
+
+app.post('/deleteUser', isAuthenticated, async (req, res) => {
+    const { username } = req.body;
+
+    try {
+        // Delete the user from the database
+        await knex('users')
+              .where({ username })
+              .del();
+
+        res.redirect('/accountmanage'); // Redirect to the account management page or a success message
+    } catch (error) {
+        console.error('Delete User Error:', error);
+        res.status(500).send('Error deleting user');
+    }
+});
 
 
 
