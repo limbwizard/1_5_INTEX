@@ -1,11 +1,21 @@
 const express = require("express");
+const session = require("express-session");
+const bcrypt = require("bcrypt");
+const moment = require("moment");
 const app = express();
 const path = require("path");
 
-const port = process.env.PORT || 3000;
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(
+    session({
+        secret: "your-secret-key",
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: !process.env.DEVELOPMENT },
+    })
+);
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "views")));
@@ -22,37 +32,37 @@ const knex = require("knex")({
     },
 });
 
+const port = process.env.PORT || 3000;
+
+// Login route
+app.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await knex("users").where({ username }).first();
+        if (user && (await bcrypt.compare(password, user.password))) {
+            // Set the user ID in the session to indicate they are logged in
+            req.session.userId = user.id;
+            res.redirect("/loggedin"); // Redirect to the protected page after login
+        } else {
+            res.status(401).json({
+                success: false,
+                message: "Invalid username or password",
+            });
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        res.status(500).send("An error occurred during login.");
+    }
+});
+
+app.get('/loggedin', isAuthenticated, (req, res) => {
+    res.render('loggedin', { username: req.session.username }); // Pass necessary data
+});
+
 // Survey page
 app.get("/survey", (req, res) => {
     res.render("survey"); // Render the 'survey.ejs' view
 });
-
-app.post("/submitSurvey", (req, res) => {
-     knex("ebdb").insert({
-                    timestamp: moment(new Date()).format("M/D/YYYY HH:mm:ss"),
-                    age: req.body.age,
-                    gender: req.body.gender,
-                    relationship_status: req.body.relationship_status,
-                    occupation_status: req.body.occupation_status,
-                    use_sm: req.body.use_sm,
-                    socialMediaPlatforms: req.body.socialMediaPlatforms,
-                    avg_daily_sm_time: req.body.avg_daily_sm_time,
-                    sm_no_purpose: req.body.sm_no_purpose,
-                    sm_distracted_when_busy: req.body.sm_distracted_when_busy,
-                    sm_restless_not_using:
-                        req.body.sm_restless_not_using,
-                    distracted_easily: req.body.distracted_easily,
-                    bothered_by_worries: req.body.bothered_by_worries,
-                    difficulty_concentrating: req.body.difficulty_concentrating,
-                    sm_compare_to_successful: req.body.sm_compare_to_successful,
-                    feel_about_compares: req.body.feel_about_compares,
-                    sm_validation_from_features: req.body.sm_validation_from_features,
-                    depressed_frequency: req.body.depressed_frequency,
-                    interest_fluctuation: req.body.interest_fluctuation,
-                    sleep_issues: req.body.sleep_issues,
-                    location: "Provo",
-     }).then(mySurvey => {res.redirect("/")});
-}); //Inserts new data from survey
 
 // Middleware to protect routes
 function isAuthenticated(req, res, next) {
