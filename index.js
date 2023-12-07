@@ -1,3 +1,11 @@
+/*
+    Group 1-5
+    Patrick Nieves, Isaac Limb, Ken Hall, Sydney Dawson
+
+    index.js page for node.js operations
+*/
+
+//declare libraries to use and other connection settings
 const express = require("express");
 const app = express();
 const moment = require("moment");
@@ -23,11 +31,12 @@ const knex = require("knex")({
     },
 });
 
-// Survey page
+//Retrieve Survey page
 app.get("/survey", (req, res) => {
     res.render("survey"); // Render the 'survey.ejs' view
 });
 
+//Submit filled out survey to database
 app.post("/submitSurvey", (req, res) => {
      knex("respondent").insert({
                     timestamp: "2" /*moment(new Date()).format("M/D/YYYY HH:mm:ss")*/,
@@ -55,10 +64,13 @@ app.post("/submitSurvey", (req, res) => {
      }).then(mySurvey => {res.redirect("/")});
 }); //Inserts new data from survey
 
+//declare app methods
+//retrieve the home page
 app.get("/", (req, res) => {
     res.sendFile("/views/index.html", { root: __dirname });
 });
 
+//retrieve the data page
 app.get("/surveyData", (req, res) => {
     knex.select()
         .from("main")
@@ -86,6 +98,7 @@ app.get("/surveyData", (req, res) => {
         });
 });
 
+//retrieve only one specified record
 app.get("/singleRecord", (req, res) => {
     knex.select()
         .from("main")
@@ -114,6 +127,7 @@ app.get("/singleRecord", (req, res) => {
         });
 });
 
+//login process to check database for credentials
 app.get("/login", (req, res) => {
     knex.select()
         .from("users")
@@ -130,6 +144,7 @@ app.get("/login", (req, res) => {
         })
 });
 
+//add user to database
 app.post("/createUser", (req, res) => {
     knex("users")
         .insert({username: req.body.username, password: req.body.password})
@@ -138,6 +153,7 @@ app.post("/createUser", (req, res) => {
         });
 });
 
+//update user information in database
 app.post("/updateUser", (req, res) => {
     knex("users")
         .where("username", req.body.username).update({
@@ -148,5 +164,6 @@ app.post("/updateUser", (req, res) => {
             res.render("accountManage");
         });
 })
-//(req.query.username == username) && (req.query.password == password)
+
+//report server working on specified port in console
 app.listen(port, () => console.log(`Server listening on port ${port}.`));

@@ -1,3 +1,9 @@
+<!--
+    Group 1-5
+    Patrick Nieves, Isaac Limb, Ken Hall, Sydney Dawson
+
+    Display All Survey Data
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +18,8 @@
 <body>
    <label><b>Survey Data</b></label>
    <br><br>
-   <form action="/singleRecord" method="GET">
     <!--Search for single record-->
+   <form action="/singleRecord" method="GET">
     <label for="singleRecord"><b>Select a record to search for by Main ID:</b></label>
     <input type="number" id="singleRecord" name="singleRecord" required>
     <button type="submit">Search</button>
@@ -22,6 +28,7 @@
    <table style="width: 100%; background-color: lightgray; border: 1px solid black;">
      <thead style="background-color: royalblue; color: white;">
        <tr>
+        <!--Set the column names in the HTML display table-->
          <th style="text-align: left;">Respondent ID</th>
          <th style="text-align: left;">Platform ID</th>
          <th style="text-align: left;">Affiliation ID</th>
@@ -56,13 +63,10 @@
        </tr>
      </thead>
      <tbody style="font-family: Arial; font-size: 9pt;">
-      <!--Create a dataset for output dynamically below
-        have to use the % for using JS and not getting data-->
+      <!--Create a dataset for output dynamically-->
       <% for (let iCount = 0; iCount < surveyData.length; iCount++) { %>
          <tr>
-          <!--Pulling data back by using %= 
-            grab data from the table and must match exactly
-            specifying column names from table in the .column_name-->
+          <!--Pulling data out of the database-->
            <td><%= surveyData[iCount].respondent_id %></td>
            <td><%= surveyData[iCount].platform_id %></td>
            <td><%= surveyData[iCount].affiliation_id %></td>

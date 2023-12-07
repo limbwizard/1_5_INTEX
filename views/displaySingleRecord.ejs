@@ -1,3 +1,9 @@
+<!--
+    Group 1-5
+    Patrick Nieves, Isaac Limb, Ken Hall, Sydney Dawson
+
+    Display Single Survey Data
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +30,7 @@
    <table style="width: 100%; background-color: lightgray; border: 1px solid black;">
      <thead style="background-color: royalblue; color: white;">
        <tr>
+        <!--Set columns in HTML display-->
          <th style="text-align: left;">Respondent ID</th>
          <th style="text-align: left;">Platform ID</th>
          <th style="text-align: left;">Affiliation ID</th>
@@ -58,13 +65,10 @@
        </tr>
      </thead>
      <tbody style="font-family: Arial; font-size: 9pt;">
-      <!--Create a dataset for output dynamically below
-        have to use the % for using JS and not getting data-->
+      <!--Create a dataset for output dynamically-->
       <% for (let iCount = 0; iCount < surveyData.length; iCount++) { %>
          <tr>
-          <!--Pulling data back by using %= 
-            grab data from the table and must match exactly
-            specifying column names from table in the .column_name-->
+          <!--Pulling data out of database-->
            <td><%= surveyData[iCount].respondent_id %></td>
            <td><%= surveyData[iCount].platform_id %></td>
            <td><%= surveyData[iCount].affiliation_id %></td>
