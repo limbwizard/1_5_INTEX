@@ -138,7 +138,7 @@ app.get("/login", (req, res) => {
                 res.render("accountManage");
             }
             else {
-                res.render("loginpage");
+                res.redirect("/loginpage.html");
                 alert("Incorrect username/password.");
             }
         })
