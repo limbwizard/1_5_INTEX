@@ -41,9 +41,9 @@ app.post("/submitSurvey", (req, res) => {
      knex("respondent").insert({
                     timestamp: "2" /*moment(new Date()).format("M/D/YYYY HH:mm:ss")*/,
                     age: req.body.age,
-                    gender: req.body.gender,
-                    relationship_status: req.body.relationship_status,
-                    occupation_status: req.body.occupation_status
+                    // gender: req.body.gender,
+                    // relationship_status: req.body.relationship_status,
+                    // occupation_status: req.body.occupation_status,
                     // use_sm: req.body.use_sm,
                     // //socialMediaPlatforms: req.body.socialMediaPlatforms,
                     // avg_daily_sm_time: req.body.avg_daily_sm_time,
