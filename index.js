@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const path = require("path");
 
+const port = process.env.PORT || 3000;
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -19,8 +21,6 @@ const knex = require("knex")({
         ssl: process.env.DB_SSL ? { rejectUnauthorized: false } : false,
     },
 });
-
-const port = process.env.PORT || 3000;
 
 // Survey page
 app.get("/survey", (req, res) => {
