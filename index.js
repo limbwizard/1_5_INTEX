@@ -55,28 +55,8 @@ app.post("/login", async (req, res) => {
     }
 });
 
-app.get('/loggedin', isAuthenticated, (req, res) => {
-    res.render('loggedin', { username: req.session.username }); // Pass necessary data
-});
-
-
-// Middleware to protect routes
-function isAuthenticated(req, res, next) {
-    if (req.session.userId) {
-        return next();
-    }
-    res.redirect("/login"); // Redirect to the login page if not authenticated
-}
-
 app.get("/loggedin", isAuthenticated, (req, res) => {
     res.render("loggedin"); // Render the 'loggedin.ejs' view
-});
-
-// Logout route
-app.get("/logout", (req, res) => {
-    req.session.destroy(() => {
-        res.redirect("/login"); // Redirect to login page after logout
-    });
 });
 
 app.post("/submitSurvey", async (req, res) => {
@@ -183,25 +163,6 @@ app.post('/updateUser', isAuthenticated, async (req, res) => {
         res.status(500).send('Error updating user');
     }
 });
-
-app.post('/deleteUser', isAuthenticated, async (req, res) => {
-    const { username } = req.body;
-
-    try {
-        // Delete the user from the database
-        await knex('users')
-              .where({ username })
-              .del();
-
-        res.redirect('/accountmanage'); // Redirect to the account management page or a success message
-    } catch (error) {
-        console.error('Delete User Error:', error);
-        res.status(500).send('Error deleting user');
-    }
-});
-
-
-
 
 app.get("/", (req, res) => {
     res.sendFile("/views/index.html", { root: __dirname });
