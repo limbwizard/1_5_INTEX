@@ -29,14 +29,14 @@ app.get("/survey", (req, res) => {
 });
 
 app.post("/submitSurvey", (req, res) => {
-     knex("ebdb").insert({
+     knex("respondent").insert({
                     timestamp: "2" /*moment(new Date()).format("M/D/YYYY HH:mm:ss")*/,
                     age: req.body.age,
                     gender: req.body.gender,
                     relationship_status: req.body.relationship_status,
                     occupation_status: req.body.occupation_status,
                     use_sm: req.body.use_sm,
-                    socialMediaPlatforms: req.body.socialMediaPlatforms,
+                    //socialMediaPlatforms: req.body.socialMediaPlatforms,
                     avg_daily_sm_time: req.body.avg_daily_sm_time,
                     sm_no_purpose: req.body.sm_no_purpose,
                     sm_distracted_when_busy: req.body.sm_distracted_when_busy,
@@ -124,10 +124,28 @@ app.get("/login", (req, res) => {
                 res.render("accountManage");
             }
             else {
-                res.send("Incorrect username/password.");
+                alert("Incorrect username/password.");
             }
         })
 });
 
+app.post("/createUser", (req, res) => {
+    knex("users")
+        .insert({username: req.body.username, password: req.body.password})
+        .then(result => {
+            res.render("accountManage");
+        });
+});
+
+app.post("/updateUser", (req, res) => {
+    knex("users")
+        .where("username", req.body.username).update({
+            username: req.body.username,
+            password: req.body.password
+        })
+        .then(result => {
+            res.render("accountManage");
+        });
+})
 //(req.query.username == username) && (req.query.password == password)
 app.listen(port, () => console.log(`Server listening on port ${port}.`));
