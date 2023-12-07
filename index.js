@@ -181,7 +181,7 @@ app.get("/surveyData", (req, res) => {
         });
 });
 
-app.get("/singleRecord"), (req, res) => {
+app.get("/singleRecord", (req, res) => {
     knex.select()
     .from("main")
     .leftJoin(
@@ -200,13 +200,12 @@ app.get("/singleRecord"), (req, res) => {
         "socialmediaplatforms.platform_id"
     )
     .where("main_id", req.query.singleRecord)
-    .then((single) => {
-        res.render("displaySingleRecord", { surveyData : single });
-    })
-    .catch((error) => {
-        console.error(error);
-        res.status(500).send("Source Code Error");
+    .then(result => {
+        res.render("displaySingleRecord", { surveyData : result });
+    }).catch(err => {
+        console.log(err);
+        res.status(500).json({err});
     });
-}
+});
 
 app.listen(port, () => console.log(`Server listening on port ${port}.`));
