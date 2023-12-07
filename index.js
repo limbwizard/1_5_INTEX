@@ -55,6 +55,23 @@ app.post("/login", async (req, res) => {
     }
 });
 
+app.get('/loggedin', isAuthenticated, (req, res) => {
+    res.render('loggedin', { username: req.session.username }); // Pass necessary data
+});
+
+// Survey page
+app.get("/survey", (req, res) => {
+    res.render("survey"); // Render the 'survey.ejs' view
+});
+
+// Middleware to protect routes
+function isAuthenticated(req, res, next) {
+    if (req.session.userId) {
+        return next();
+    }
+    res.redirect("/login"); // Redirect to the login page if not authenticated
+}
+
 app.get("/loggedin", isAuthenticated, (req, res) => {
     res.render("loggedin"); // Render the 'loggedin.ejs' view
 });
