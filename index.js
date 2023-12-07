@@ -124,7 +124,7 @@ app.get("/login", (req, res) => {
                 res.render("accountManage");
             }
             else {
-                alert("Incorrect username/password.");
+                res.render("loginpage");
             }
         })
 });
@@ -141,7 +141,7 @@ app.post("/updateUser", (req, res) => {
     knex("users")
         .where("username", req.body.username).update({
             username: req.body.username,
-            password: req.body.password
+            password: req.body.newPassword
         })
         .then(result => {
             res.render("accountManage");
