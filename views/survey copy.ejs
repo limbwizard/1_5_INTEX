@@ -1,0 +1,428 @@
+<!--
+    Group 1-5
+    Patrick Nieves, Isaac Limb, Ken Hall, Sydney Dawson
+
+    survey.ejs page for displaying survey
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <!--Basic titling and CSS connections-->
+<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Survey Page</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="/provoflag.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <!-- Navigation-->
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand" href="/index.html">City of Provo</a>
+            <div class="menuBar">
+            <style>
+                /* Add some basic styling for the dropdown menu */
+
+                .button-container {
+                    margin-right: 25px;
+                }
+
+                .dropdown {
+                    position: relative;
+                    display: inline-block;
+                }
+
+                .dropdown-content {
+                    display: none;
+                    opacity: 0.65;
+                    position: absolute;
+                    background-color: #f9f9f9;
+                    min-width: 160px;
+                    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                    z-index: 1;
+                }
+
+                .dropdown:hover .dropdown-content {
+                    display: block;
+                }
+
+                .dropdown-content a {
+                    color: black;
+                    padding: 12px 16px;
+                    text-decoration: none;
+                    display: block;
+                }
+
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1;
+                }
+            </style>
+        <!-- Dropdown menu -->
+        <div class="dropdown">
+            <button class="btn btn-primary button-container">Menu</button>
+            <div class="dropdown-content">
+                <a>
+                    <form action="/survey" method="GET">
+                        <button style="border: none; background: none; color: #222;" type="submit">Survey</button>
+                    </form>
+                </a>
+                <a href="dashboard.html">Dashboard</a>
+            </div>
+        </div>
+        <a class="btn btn-primary" href="/loginpage.html">Log In</a>
+    </div>
+        </div>
+    </nav>
+
+    <!--User survey form on HTML with CSS, and on page-->
+    <title>User Survey Form</title>
+    <style>
+        .column {
+            float: left;
+            width: 50%;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        #survey-container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4169E1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0F52BA;
+        }
+    </style>
+</head>
+<body>
+    <div id="survey-container">
+    <h2 style="text-align: center;">Provo Citizen Survey Form</h2>
+    <form action="/submitSurvey" method="POST">
+
+        <!-- Age -->
+        <label for="age"><b>Age (Must be at least 18):</b></label>
+        <input type="number" id="age" min="18" max="100" name="age" required>
+
+        <!-- Gender -->
+        <label for="gender"><b>Gender:</b></label>
+        <select id="gender" name="gender" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+
+        <!-- Relationship status -->
+        <label for="relationship_status"><b>Relationship status:</b></label>
+        <select id="relationship_status" name="relationship_status" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="single">Single</option>
+            <option value="married">Married</option>
+            <option value="divorced">Divorced</option>
+            <option value="in_a_relationship">In a relationship</option>
+        </select>
+
+        <!-- Occupation status -->
+        <label for="occupation_status"><b>Occupation status:</b></label>
+        <select id="occupation_status" name="occupation_status">
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="university_student">University Student</option>
+            <option value="school_student">School Student</option>
+            <option value="Salaried_worker">Salaried Worker</option>
+            <option value="retired">Retired</option>
+        </select>
+
+        <!-- Organizations affiliated with -->
+        <label for="affiliation_id"><b>Affiliated organizations:</b></label>
+        <select id="affiliation_id" name="affiliation_id">
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">University</option>
+            <option value="2">Company</option>
+            <option value="3">Private</option>
+            <option value="4">School</option>
+            <option value="5">Government</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Social media usage -->
+        <label for="use_sm"><b>Do you use social media?</b></label>
+        <label for="useSocialMediaYes">
+        <input type="radio" id="use_sm" name="use_sm" value="yes" required>
+        Yes</label>
+        <label for="useSocialMediaNo">
+        <input type="radio" id="use_sm" name="use_sm" value="no" required>
+        No</label>
+        <br>
+        <br>
+
+        <!-- Social media platforms -->
+        <label for="socialMediaPlatforms"><b>What social media platforms do you commonly use? (Check all that apply)</b></label>
+        <br>
+        <div class="row">
+            <div class="column">
+                <label>
+                    <input type="checkbox" name="socialMediaPlatforms[]" value="1"> Facebook
+                </label>
+                <label>
+                    <input type="checkbox" name="socialMediaPlatforms[]" value="2"> Twitter
+                </label>
+                <label>
+                    <input type="checkbox" name="socialMediaPlatforms[]" value="3"> Instagram
+                </label>
+                <label>
+                    <input type="checkbox" name="socialMediaPlatforms[]" value="4"> YouTube
+                </label>
+                <label>
+                    <input type="checkbox" name="socialMediaPlatforms[]" value="5"> Discord
+                </label>
+            </div>
+            <div class="column">
+                <label>
+                    <input type="checkbox" name="socialMediaPlatforms[]" value="6"> Snapchat
+                </label>
+                <label>
+                    <input type="checkbox" name="socialMediaPlatforms[]" value="7"> TikTok
+                </label>
+                <label>
+                    <input type="checkbox" name="socialMediaPlatforms[]" value="8"> Reddit
+                </label>
+                <label>
+                    <input type="checkbox" name="socialMediaPlatforms[]" value="9"> Pinterest
+                </label>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <!-- Average time on social media -->
+        <label for="avg_daily_sm_time"><b>Average time on social media per day:</b></label>
+        <select id="avg_daily_sm_time" name="avg_daily_sm_time" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="Less than an Hour">Less than an Hour</option>
+            <option value="Between 1 and 2 hours">Between 1 and 2 hours</option>
+            <option value="Between 2 and 3 hours">Between 2 and 3 hours</option>
+            <option value="Between 3 and 4 hours">Between 3 and 4 hours</option>
+            <option value="Between 4 and 5 hours">Between 4 and 5 hours</option>
+            <option value="More than 5 hours">More than 5 hours</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Purposeless social media use -->
+        <label for="sm_no_purpose"><b>How often do you find yourself using social media without a specific purpose?</b></label>
+        <select id="sm_no_purpose" name="sm_no_purpose" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Never</option>
+            <option value="2">2 - Rarely</option>
+            <option value="3">3 - Sometimes</option>
+            <option value="4">4 - Frequently</option>
+            <option value="5">5 - Always</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Distraction by social media -->
+        <label for="sm_distracted_when_busy"><b>How often do you get distracted by social media when you are busy doing something?</b></label>
+        <select id="sm_distracted_when_busy" name="sm_distracted_when_busy" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Never</option>
+            <option value="2">2 - Rarely</option>
+            <option value="3">3 - Sometimes</option>
+            <option value="4">4 - Frequently</option>
+            <option value="5">5 - Always</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Restlessness without social media -->
+        <label for="sm_restless_not_using"><b>Do you feel restless if you haven’t used social media in a while?</b></label>
+        <select id="sm_restless_not_using" name="sm_restless_not_using">
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Never</option>
+            <option value="2">2 - Rarely</option>
+            <option value="3">3 - Sometimes</option>
+            <option value="4">4 - Frequently</option>
+            <option value="5">5 - Always</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Ease of distraction -->
+        <label for="distracted_easily"><b>How easily distracted are you?</b></label>
+        <select id="distracted_easily" name="distracted_easily" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Never</option>
+            <option value="2">2 - Rarely</option>
+            <option value="3">3 - Sometimes</option>
+            <option value="4">4 - Frequently</option>
+            <option value="5">5 - Always</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Bothered by worries -->
+        <label for="bothered_by_worries"><b>How much are you bothered by worries?</b></label>
+        <select id="bothered_by_worries" name="bothered_by_worries" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Never</option>
+            <option value="2">2 - Rarely</option>
+            <option value="3">3 - Sometimes</option>
+            <option value="4">4 - Frequently</option>
+            <option value="5">5 - Always</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Difficulty concentrating -->
+        <label for="difficulty_concentrating"><b>Do you find it difficult to concentrate on things?</b></label>
+        <select id="difficulty_concentrating" name="difficulty_concentrating">
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Never</option>
+            <option value="2">2 - Rarely</option>
+            <option value="3">3 - Sometimes</option>
+            <option value="4">4 - Frequently</option>
+            <option value="5">5 - Always</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Social media comparisons -->
+        <label for="sm_compare_to_successful"><b>How often do you compare yourself to other successful people through the use of social media?</b></label>
+        <select id="sm_compare_to_successful" name="sm_compare_to_successful" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Never</option>
+            <option value="2">2 - Rarely</option>
+            <option value="3">3 - Sometimes</option>
+            <option value="4">4 - Frequently</option>
+            <option value="5">5 - Always</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Feelings about social media comparisons -->
+        <label for="feel_about_compares"><b>Following the previous question, how do you feel about these comparisons, generally speaking?</b></label>
+        <select id="feel_about_compares" name="feel_about_compares">
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Terrible</option>
+            <option value="2">2 - Bad</option>
+            <option value="3">3 - Okay</option>
+            <option value="4">4 - Good</option>
+            <option value="5">5 - Great</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Validation seeking -->
+        <label for="sm_validation_from_features"><b>How often do you look to seek validation from features of social media?</b></label>
+        <select id="sm_validation_from_features" name="sm_validation_from_features" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Never</option>
+            <option value="2">2 - Rarely</option>
+            <option value="3">3 - Sometimes</option>
+            <option value="4">4 - Frequently</option>
+            <option value="5">5 - Always</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Feelings of depression -->
+        <label for="depressed_frequency"><b>How often do you feel depressed or down?</b></label>
+        <select id="depressed_frequency" name="depressed_frequency" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Never</option>
+            <option value="2">2 - Rarely</option>
+            <option value="3">3 - Sometimes</option>
+            <option value="4">4 - Frequently</option>
+            <option value="5">5 - Always</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Fluctuation in interest -->
+        <label for="interest_fluctuation"><b>How frequently does your interest in daily activities fluctuate?</b></label>
+        <select id="interest_fluctuation" name="interest_fluctuation" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Never</option>
+            <option value="2">2 - Rarely</option>
+            <option value="3">3 - Sometimes</option>
+            <option value="4">4 - Frequently</option>
+            <option value="5">5 - Always</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Sleep issues -->
+        <label for="sleep_issues"><b>How often do you face issues regarding sleep?</b></label>
+        <select id="sleep_issues" name="sleep_issues" required>
+            <option value="" selected disabled>-- Select One --</option>
+            <option value="1">1 - Never</option>
+            <option value="2">2 - Rarely</option>
+            <option value="3">3 - Sometimes</option>
+            <option value="4">4 - Frequently</option>
+            <option value="5">5 - Always</option>
+        </select>
+        <br>
+        <br>
+
+        <!-- Submit button -->
+        <button type="submit">Submit</button>
+
+    </form>
+</div>
+
+</body>
+</html>
