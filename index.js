@@ -43,24 +43,24 @@ app.post("/submitSurvey", (req, res) => {
                     age: req.body.age,
                     gender: req.body.gender,
                     relationship_status: req.body.relationship_status,
-                    occupation_status: req.body.occupation_status,
-                    use_sm: req.body.use_sm,
-                    //socialMediaPlatforms: req.body.socialMediaPlatforms,
-                    avg_daily_sm_time: req.body.avg_daily_sm_time,
-                    sm_no_purpose: req.body.sm_no_purpose,
-                    sm_distracted_when_busy: req.body.sm_distracted_when_busy,
-                    sm_restless_not_using:
-                        req.body.sm_restless_not_using,
-                    distracted_easily: req.body.distracted_easily,
-                    bothered_by_worries: req.body.bothered_by_worries,
-                    difficulty_concentrating: req.body.difficulty_concentrating,
-                    sm_compare_to_successful: req.body.sm_compare_to_successful,
-                    feel_about_compares: req.body.feel_about_compares,
-                    sm_validation_from_features: req.body.sm_validation_from_features,
-                    depressed_frequency: req.body.depressed_frequency,
-                    interest_fluctuation: req.body.interest_fluctuation,
-                    sleep_issues: req.body.sleep_issues,
-                    location: "Provo"
+                    occupation_status: req.body.occupation_status
+                    // use_sm: req.body.use_sm,
+                    // //socialMediaPlatforms: req.body.socialMediaPlatforms,
+                    // avg_daily_sm_time: req.body.avg_daily_sm_time,
+                    // sm_no_purpose: req.body.sm_no_purpose,
+                    // sm_distracted_when_busy: req.body.sm_distracted_when_busy,
+                    // sm_restless_not_using:
+                    //     req.body.sm_restless_not_using,
+                    // distracted_easily: req.body.distracted_easily,
+                    // bothered_by_worries: req.body.bothered_by_worries,
+                    // difficulty_concentrating: req.body.difficulty_concentrating,
+                    // sm_compare_to_successful: req.body.sm_compare_to_successful,
+                    // feel_about_compares: req.body.feel_about_compares,
+                    // sm_validation_from_features: req.body.sm_validation_from_features,
+                    // depressed_frequency: req.body.depressed_frequency,
+                    // interest_fluctuation: req.body.interest_fluctuation,
+                    // sleep_issues: req.body.sleep_issues,
+                    // location: "Provo"
      }).then(mySurvey => {res.redirect("/index.html")});
 }); //Inserts new data from survey
 
