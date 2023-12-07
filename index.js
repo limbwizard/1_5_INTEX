@@ -51,7 +51,7 @@ app.post("/submitSurvey", (req, res) => {
                     depressed_frequency: req.body.depressed_frequency,
                     interest_fluctuation: req.body.interest_fluctuation,
                     sleep_issues: req.body.sleep_issues,
-                    location: "Provo",
+                    location: "Provo"
      }).then(mySurvey => {res.redirect("/")});
 }); //Inserts new data from survey
 

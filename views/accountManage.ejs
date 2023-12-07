@@ -12,11 +12,10 @@
         <!-- Navigation-->
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="#!">City of Provo</a>
+                <a class="navbar-brand" href="/index.html">City of Provo</a>
                 <div class="menuBar">
                 <style>
                     /* Add some basic styling for the dropdown menu */
-
                     .button-container {
                         margin-right: 25px;
                     }
@@ -63,18 +62,15 @@
                 <div class="dropdown-content">
                     <a href="survey.html">Survey</a>
                     <a href="dashboard.html">Dashboard</a>
-                </div>
+                </div>         
+                <form action="/surveyData" method="GET">
+                    <a><button type="submit">Data Report</button></a>
+                </form>
             </div>
-            <a class="btn btn-primary" href="/loginpage.html">Log In</a>
         </div>
             </div>
         </nav>
     <h1>Manage Accounts</h1>
-
-
-    <form action="/surveyData" method="GET">
-        <button type="submit">Return to Full Data</button>
-    </form>
 
     <!-- Form for creating a new account -->
     <form action="/createUser" method="post">
