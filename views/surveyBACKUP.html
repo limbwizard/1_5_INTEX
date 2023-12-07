@@ -162,8 +162,8 @@
         </select>
 
         <!-- Relationship status -->
-        <label for="relationship_status"><b>Relationship status:</b></label>
-        <select id="relationship_status" name="relationship_status" required>
+        <label for="relationshipStatus"><b>Relationship status:</b></label>
+        <select id="relationshipStatus" name="relationshipStatus" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="single">Single</option>
             <option value="married">Married</option>
@@ -172,8 +172,8 @@
         </select>
 
         <!-- Occupation status -->
-        <label for="occupation_status"><b>Occupation status:</b></label>
-        <select id="occupation_status" name="occupation_status" required>
+        <label for="occupationStatus"><b>Occupation status:</b></label>
+        <select id="occupationStatus" name="occupationStatus" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="university_student">University Student</option>
             <option value="school_student">School Student</option>
@@ -182,25 +182,25 @@
         </select>
 
         <!-- Organizations affiliated with -->
-        <label for="affiliation_id"><b>Affiliated organizations:</b></label>
-        <select id="affiliation_id" name="affiliation_id">
+        <label for="affiliatedOrganizations"><b>Affiliated organizations:</b></label>
+        <select id="affiliatedOrganizations" name="affiliatedOrganizations">
             <option value="" selected disabled>-- Select One --</option>
-            <option value="1">University</option>
-            <option value="2">Company</option>
-            <option value="3">Private</option>
-            <option value="4">School</option>
-            <option value="5">Government</option>
+            <option value="university">University</option>
+            <option value="school">School</option>
+            <option value="company">Company</option>
+            <option value="private">Private</option>
+            <option value="government">Government</option>
         </select>
         <br>
         <br>
 
         <!-- Social media usage -->
-        <label for="use_sm"><b>Do you use social media?</b></label>
+        <label for="useSocialMedia"><b>Do you use social media?</b></label>
         <label for="useSocialMediaYes">
-        <input type="radio" id="useSocialMediaYes" name="use_sm" value="yes" required>
+        <input type="radio" id="useSocialMediaYes" name="useSocialMedia" value="yes" required>
         Yes</label>
         <label for="useSocialMediaNo">
-        <input type="radio" id="useSocialMediaNo" name="use_sm" value="no" required>
+        <input type="radio" id="useSocialMediaNo" name="useSocialMedia" value="no" required>
         No</label>
         <br>
         <br>
@@ -210,43 +210,43 @@
         <br>
         <div class="row">
             <div class="column">
-                <label>
-                    <input type="checkbox" name="socialMediaPlatforms[]" value="1"> Facebook
-                </label>
-                <label>
-                    <input type="checkbox" name="socialMediaPlatforms[]" value="2"> Twitter
-                </label>
-                <label>
-                    <input type="checkbox" name="socialMediaPlatforms[]" value="3"> Instagram
-                </label>
-                <label>
-                    <input type="checkbox" name="socialMediaPlatforms[]" value="4"> YouTube
-                </label>
-                <label>
-                    <input type="checkbox" name="socialMediaPlatforms[]" value="5"> Discord
-                </label>
+                <label for="facebook">
+                <input type="checkbox" id="facebook" name="socialMediaPlatforms[]" value="facebook">
+                Facebook</label>
+                <label for="twitter">
+                <input type="checkbox" id="twitter" name="socialMediaPlatforms[]" value="twitter">
+                Twitter</label>
+                <label for="instagram">
+                <input type="checkbox" id="instagram" name="socialMediaPlatforms[]" value="instagram">
+                Instagram</label>
+                <label for="YouTube">
+                <input type="checkbox" id="YouTube" name="socialMediaPlatforms[]" value="YouTube">
+                YouTube</label>
+                <label for="TikTok">
+                <input type="checkbox" id="TikTok" name="socialMediaPlatforms[]" value="TikTok">
+                TikTok</label>
             </div>
             <div class="column">
-                <label>
-                    <input type="checkbox" name="socialMediaPlatforms[]" value="6"> Snapchat
-                </label>
-                <label>
-                    <input type="checkbox" name="socialMediaPlatforms[]" value="7"> TikTok
-                </label>
-                <label>
-                    <input type="checkbox" name="socialMediaPlatforms[]" value="8"> Reddit
-                </label>
-                <label>
-                    <input type="checkbox" name="socialMediaPlatforms[]" value="9"> Pinterest
-                </label>
+                <label for="Snapchat">
+                <input type="checkbox" id="Snapchat" name="socialMediaPlatforms[]" value="Snapchat">
+                Snapchat</label>
+                <label for="Discord">
+                <input type="checkbox" id="Discord" name="socialMediaPlatforms[]" value="Discord">
+                Discord</label>
+                <label for="Reddit">
+                <input type="checkbox" id="Reddit" name="socialMediaPlatforms[]" value="Reddit">
+                Reddit</label>
+                <label for="Pinterest">
+                <input type="checkbox" id="Pinterest" name="socialMediaPlatforms[]" value="Pinterest">
+                Pinterest</label>
             </div>
         </div>
         <br>
         <br>
 
         <!-- Average time on social media -->
-        <label for="avg_daily_sm_time"><b>Average time on social media per day:</b></label>
-        <select id="avg_daily_sm_time" name="avg_daily_sm_time" required>
+        <label for="averageTimeOnSocialMedia"><b>Average time on social media per day:</b></label>
+        <select id="averageTimeOnSocialMedia" name="averageTimeOnSocialMedia" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="Less than an Hour">Less than an Hour</option>
             <option value="Between 1 and 2 hours">Between 1 and 2 hours</option>
@@ -259,8 +259,8 @@
         <br>
 
         <!-- Purposeless social media use -->
-        <label for="sm_no_purpose"><b>How often do you find yourself using social media without a specific purpose?</b></label>
-        <select id="sm_no_purpose" name="sm_no_purpose" required>
+        <label for="purposelessSocialMediaUse"><b>How often do you find yourself using social media without a specific purpose?</b></label>
+        <select id="purposelessSocialMediaUse" name="purposelessSocialMediaUse" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Never</option>
             <option value="2">2 - Rarely</option>
@@ -272,8 +272,8 @@
         <br>
 
         <!-- Distraction by social media -->
-        <label for="sm_distracted_when_busy"><b>How often do you get distracted by social media when you are busy doing something?</b></label>
-        <select id="sm_distracted_when_busy" name="sm_distracted_when_busy" required>
+        <label for="distractionBySocialMedia"><b>How often do you get distracted by social media when you are busy doing something?</b></label>
+        <select id="distractionBySocialMedia" name="distractionBySocialMedia" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Never</option>
             <option value="2">2 - Rarely</option>
@@ -285,8 +285,8 @@
         <br>
 
         <!-- Restlessness without social media -->
-        <label for="sm_restless_not_using"><b>Do you feel restless if you haven’t used social media in a while?</b></label>
-        <select id="sm_restless_not_using" name="sm_restless_not_using">
+        <label for="restlessnessWithoutSocialMedia"><b>Do you feel restless if you haven’t used social media in a while?</b></label>
+        <select id="restlessnessWithoutSocialMedia" name="restlessnessWithoutSocialMedia">
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Never</option>
             <option value="2">2 - Rarely</option>
@@ -298,8 +298,8 @@
         <br>
 
         <!-- Ease of distraction -->
-        <label for="distracted_easily"><b>How easily distracted are you?</b></label>
-        <select id="distracted_easily" name="distracted_easily" required>
+        <label for="easeOfDistraction"><b>How easily distracted are you?</b></label>
+        <select id="easeOfDistraction" name="easeOfDistraction" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Never</option>
             <option value="2">2 - Rarely</option>
@@ -311,8 +311,8 @@
         <br>
 
         <!-- Bothered by worries -->
-        <label for="bothered_by_worries"><b>How much are you bothered by worries?</b></label>
-        <select id="bothered_by_worries" name="bothered_by_worries" required>
+        <label for="botheredByWorries"><b>How much are you bothered by worries?</b></label>
+        <select id="botheredByWorries" name="botheredByWorries" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Never</option>
             <option value="2">2 - Rarely</option>
@@ -324,8 +324,8 @@
         <br>
 
         <!-- Difficulty concentrating -->
-        <label for="difficulty_concentrating"><b>Do you find it difficult to concentrate on things?</b></label>
-        <select id="difficulty_concentrating" name="difficulty_concentrating">
+        <label for="difficultyConcentrating"><b>Do you find it difficult to concentrate on things?</b></label>
+        <select id="difficultyConcentrating" name="difficultyConcentrating">
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Never</option>
             <option value="2">2 - Rarely</option>
@@ -337,8 +337,8 @@
         <br>
 
         <!-- Social media comparisons -->
-        <label for="sm_compare_to_successful"><b>How often do you compare yourself to other successful people through the use of social media?</b></label>
-        <select id="sm_compare_to_successful" name="sm_compare_to_successful" required>
+        <label for="socialMediaComparisons"><b>How often do you compare yourself to other successful people through the use of social media?</b></label>
+        <select id="socialMediaComparisons" name="socialMediaComparisons" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Never</option>
             <option value="2">2 - Rarely</option>
@@ -350,8 +350,8 @@
         <br>
 
         <!-- Feelings about social media comparisons -->
-        <label for="feel_about_compares"><b>Following the previous question, how do you feel about these comparisons, generally speaking?</b></label>
-        <select id="feel_about_compares" name="feel_about_compares">
+        <label for="feelingsAboutComparisons"><b>Following the previous question, how do you feel about these comparisons, generally speaking?</b></label>
+        <select id="feelingsAboutComparisons" name="feelingsAboutComparisons">
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Terrible</option>
             <option value="2">2 - Bad</option>
@@ -363,8 +363,8 @@
         <br>
 
         <!-- Validation seeking -->
-        <label for="sm_validation_from_features"><b>How often do you look to seek validation from features of social media?</b></label>
-        <select id="sm_validation_from_features" name="sm_validation_from_features" required>
+        <label for="validationSeeking"><b>How often do you look to seek validation from features of social media?</b></label>
+        <select id="validationSeeking" name="validationSeeking" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Never</option>
             <option value="2">2 - Rarely</option>
@@ -376,8 +376,8 @@
         <br>
 
         <!-- Feelings of depression -->
-        <label for="depressed_frequency"><b>How often do you feel depressed or down?</b></label>
-        <select id="depressed_frequency" name="depressed_frequency" required>
+        <label for="feelingsOfDepression"><b>How often do you feel depressed or down?</b></label>
+        <select id="feelingsOfDepression" name="feelingsOfDepression" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Never</option>
             <option value="2">2 - Rarely</option>
@@ -389,8 +389,8 @@
         <br>
 
         <!-- Fluctuation in interest -->
-        <label for="interest_fluctuation"><b>How frequently does your interest in daily activities fluctuate?</b></label>
-        <select id="interest_fluctuation" name="interest_fluctuation" required>
+        <label for="interestFluctuation"><b>How frequently does your interest in daily activities fluctuate?</b></label>
+        <select id="interestFluctuation" name="interestFluctuation" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Never</option>
             <option value="2">2 - Rarely</option>
@@ -402,8 +402,8 @@
         <br>
 
         <!-- Sleep issues -->
-        <label for="sleep_issues"><b>How often do you face issues regarding sleep?</b></label>
-        <select id="sleep_issues" name="sleep_issues" required>
+        <label for="sleepIssues"><b>How often do you face issues regarding sleep?</b></label>
+        <select id="sleepIssues" name="sleepIssues" required>
             <option value="" selected disabled>-- Select One --</option>
             <option value="1">1 - Never</option>
             <option value="2">2 - Rarely</option>

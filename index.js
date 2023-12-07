@@ -78,81 +78,64 @@ app.post("/submitSurvey", async (req, res) => {
     const formData = req.body;
 
     try {
-        await knex.transaction(async (trx) => {
-            // Insert data into 'respondent' table
+        const response = await knex.transaction(async (trx) => {
+            const respondentData = {
+                timestamp: moment().format("M/D/YYYY HH:mm:ss"),
+                ...formData,
+                location: "Provo",
+            };
+
             const [respondentId] = await trx("respondent")
-                .insert({
-                    timestamp: moment(new Date()).format("M/D/YYYY HH:mm:ss"),
-                    age: formData.age,
-                    gender: formData.gender,
-                    relationship_status: formData.relationshipStatus,
-                    occupation_status: formData.occupationStatus,
-                    use_sm: formData.useSocialMedia,
-                    avg_daily_sm_time: formData.averageTimeOnSocialMedia,
-                    sm_no_purpose: formData.purposelessSocialMediaUse,
-                    sm_distracted_when_busy: formData.distractionBySocialMedia,
-                    sm_restless_not_using:
-                        formData.restlessnessWithoutSocialMedia,
-                    distracted_easily: formData.easeOfDistraction,
-                    bothered_by_worries: formData.botheredByWorries,
-                    difficulty_concentrating: formData.difficultyConcentrating,
-                    sm_compare_to_successful: formData.socialMediaComparisons,
-                    feel_about_compares: formData.feelingsAboutComparisons,
-                    sm_validation_from_features: formData.validationSeeking,
-                    depressed_frequency: formData.feelingsOfDepression,
-                    interest_fluctuation: formData.interestFluctuation,
-                    sleep_issues: formData.sleepIssues,
-                    location: "Provo",
-                })
+                .insert(respondentData)
                 .returning("respondent_id");
+            const affiliationId = formData.affiliatedOrganizations
+                ? await getAffiliationId(trx, formData.affiliatedOrganizations)
+                : null;
+            const platformIds = await getPlatformIds(
+                trx,
+                formData["socialMediaPlatforms[]"] || []
+            );
+            const mainEntries = platformIds.map((platformId) => ({
+                respondent_id: respondentId,
+                platform_id: platformId,
+                affiliation_id: affiliationId,
+            }));
 
-            // Handle organization affiliation if provided
-            let affiliationId = null;
-            if (formData.affiliatedOrganizations) {
-                const affiliationRecord = await trx("organizationaffiliation")
-                    .where({
-                        affiliation_name: formData.affiliatedOrganizations,
-                    })
-                    .first();
-
-                affiliationId = affiliationRecord
-                    ? affiliationRecord.affiliation_id
-                    : null;
-            }
-
-            // Insert data into 'main' table with social media platforms
-            const platformNames = formData["socialMediaPlatforms[]"] || [];
-            if (platformNames.length > 0) {
-                for (const platformName of platformNames) {
-                    const platformRecord = await trx("socialmediaplatforms")
-                        .where({ platform_name: platformName })
-                        .first();
-
-                    if (platformRecord) {
-                        await trx("main").insert({
-                            respondent_id: respondentId,
-                            platform_id: platformRecord.platform_id,
-                            affiliation_id: affiliationId,
-                        });
-                    }
-                }
+            if (mainEntries.length) {
+                await trx("main").insert(mainEntries);
             } else {
-                // Even if no platforms are provided, insert a record into 'main'
                 await trx("main").insert({
                     respondent_id: respondentId,
-                    platform_id: null,
                     affiliation_id: affiliationId,
                 });
             }
 
-            await trx.commit();
-            res.status(200).send("Survey data submitted successfully!");
+            return "Survey data submitted successfully!";
         });
+
+        res.status(200).send(response);
     } catch (error) {
         console.error("Transaction failed:", error);
         res.status(500).send("Failed to submit survey data. Please try again.");
     }
 });
+
+async function getAffiliationId(trx, affiliationId) {
+    // Validate that affiliationId is a number
+    const id = parseInt(affiliationId, 10);
+    return !isNaN(id) ? id : null;
+}
+
+async function getPlatformIds(trx, platformIds) {
+    // Validate each ID and parse it to an integer
+    return platformIds.reduce((validIds, id) => {
+        const parsedId = parseInt(id, 10);
+        if (!isNaN(parsedId)) {
+            validIds.push(parsedId);
+        }
+        return validIds;
+    }, []);
+}
 
 
 
@@ -190,29 +173,30 @@ app.get("/surveyData", (req, res) => {
 
 app.get("/singleRecord", (req, res) => {
     knex.select()
-    .from("main")
-    .leftJoin(
-        "organizationaffiliation",
-        "main.affiliation_id",
-        "organizationaffiliation.affiliation_id"
-    )
-    .leftJoin(
-        "respondent",
-        "main.respondent_id",
-        "respondent.respondent_id"
-    )
-    .leftJoin(
-        "socialmediaplatforms",
-        "main.platform_id",
-        "socialmediaplatforms.platform_id"
-    )
-    .where("main_id", req.query.singleRecord)
-    .then(result => {
-        res.render("displaySingleRecord", { surveyData : result });
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json({err});
-    });
+        .from("main")
+        .leftJoin(
+            "organizationaffiliation",
+            "main.affiliation_id",
+            "organizationaffiliation.affiliation_id"
+        )
+        .leftJoin(
+            "respondent",
+            "main.respondent_id",
+            "respondent.respondent_id"
+        )
+        .leftJoin(
+            "socialmediaplatforms",
+            "main.platform_id",
+            "socialmediaplatforms.platform_id"
+        )
+        .where("main_id", req.query.singleRecord)
+        .then((result) => {
+            res.render("displaySingleRecord", { surveyData: result });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({ err });
+        });
 });
 
 app.listen(port, () => console.log(`Server listening on port ${port}.`));
