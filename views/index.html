@@ -20,8 +20,7 @@
                 <a class="navbar-brand" href="/index.html">City of Provo</a>
                 <div class="menuBar">
                 <style>
-                    /* Add some basic styling for the dropdown menu */
-
+                /* Add some basic styling for the dropdown menu */
                     .button-container {
                         margin-right: 25px;
                     }
@@ -34,7 +33,7 @@
 
                     .dropdown-content {
                         display: none;
-                        opacity: 0.65;
+                        opacity: 1;
                         position: absolute;
                         background-color: #f9f9f9;
                         min-width: 160px;
@@ -57,21 +56,24 @@
                         background-color: #f1f1f1;
                     }
                 </style>
-
-
             <!-- Dropdown menu -->
-            <div class="dropdown">
+            <div 
+            class="dropdown">
                 <button class="btn btn-primary button-container">Menu</button>
                 <div class="dropdown-content">
                     <a>
                         <form action="/survey" method="GET">
-                            <button style="border: none; background: none;" type="submit">Survey</button>
+                            <button style="border: none; background: none; color: #222;" type="submit">Survey</button>
                         </form>
                     </a>
-                    <a href="dashboard.html">Dashboard</a>
-                </div>
+                    <a><button style="background: none; border: none; color: #222;" type="button" href="dashboard.html">Dashboard</button></a>
+                    <a>
+                        <form action="/surveyData" method="GET">
+                            <button style="background: none; border: none; color: #222;" type="submit">Data Report</button>
+                        </form>
+                    </a>
+                </div>         
             </div>
-            <a class="btn btn-primary" href="/loginpage.html">Log In</a>
         </div>
             </div>
         </nav>
