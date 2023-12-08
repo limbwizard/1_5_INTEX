@@ -40,41 +40,39 @@ app.get("/survey", (req, res) => {
 app.post("/submitSurvey", (req, res) => {
     knex("respondent")
         .insert({
-            timestamp: "2", // moment(new Date()).format("M/D/YYYY HH:mm:ss"),
+            timestamp: moment(new Date()).format("M/D/YYYY HH:mm:ss"),
             age: req.body.age,
-            gender: req.body.gender.value
-            // relationship_status: req.body.relationship_status,
-            // occupation_status: req.body.occupation_status,
-            // use_sm: req.body.use_sm,
-            // //socialMediaPlatforms: req.body.socialMediaPlatforms,
-            // avg_daily_sm_time: req.body.avg_daily_sm_time,
-            // sm_no_purpose: req.body.sm_no_purpose,
-            // sm_distracted_when_busy: req.body.sm_distracted_when_busy,
-            // sm_restless_not_using:
-            //     req.body.sm_restless_not_using,
-            // distracted_easily: req.body.distracted_easily,
-            // bothered_by_worries: req.body.bothered_by_worries,
-            // difficulty_concentrating: req.body.difficulty_concentrating,
-            // sm_compare_to_successful: req.body.sm_compare_to_successful,
-            // feel_about_compares: req.body.feel_about_compares,
-            // sm_validation_from_features: req.body.sm_validation_from_features,
-            // depressed_frequency: req.body.depressed_frequency,
-            // interest_fluctuation: req.body.interest_fluctuation,
-            // sleep_issues: req.body.sleep_issues,
-            // location: "Provo"
+            gender: req.body.gender.value,
+            relationship_status: req.body.relationship_status.value,
+            occupation_status: req.body.occupation_status.value,
+            use_sm: req.body.use_sm.value,
+            avg_daily_sm_time: req.body.avg_daily_sm_time.value,
+            sm_no_purpose: req.body.sm_no_purpose.value,
+            sm_distracted_when_busy: req.body.sm_distracted_when_busy.value,
+            sm_restless_not_using: req.body.sm_restless_not_using.value,
+            distracted_easily: req.body.distracted_easily.value,
+            bothered_by_worries: req.body.bothered_by_worries.value,
+            difficulty_concentrating: req.body.difficulty_concentrating.value,
+            sm_compare_to_successful: req.body.sm_compare_to_successful.value,
+            feel_about_compares: req.body.feel_about_compares.value,
+            sm_validation_from_features: req.body.sm_validation_from_features.value,
+            depressed_frequency: req.body.depressed_frequency.value,
+            interest_fluctuation: req.body.interest_fluctuation.value,
+            sleep_issues: req.body.sleep_issues.value,
+            location: "Provo"
                     })
-        // .then(mySurvey => {
-        //     // After inserting into respondent table, perform another knex query
-        //     return knex("socialmediaplatforms").insert({
-        //         socialMediaPlatforms: req.body.socialMediaPlatforms
-        //     });
-        // })
-        // .then(mySurvey2 => {
-        //     // Do something with the data from another_table
-        //     return knex("organizationaffiliation").insert({
-        //         affiliation_id: req.body.affiliation_id
-        //     });
-        // })
+        .then(mySurvey => {
+            // After inserting into respondent table, perform another knex query
+            return knex("socialmediaplatforms").insert({
+                socialMediaPlatforms: req.body.socialMediaPlatforms.value
+            });
+        })
+        .then(mySurvey2 => {
+            // Do something with the data from another_table
+            return knex("organizationaffiliation").insert({
+                affiliation_id: req.body.affiliation_id.value
+            });
+        })
         .then(mySurvey3=> {
             res.redirect("/index.html");
         })
