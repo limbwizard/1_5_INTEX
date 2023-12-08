@@ -1,4 +1,8 @@
 # 1_5_INTEX
+Files to Not Include in Zip:
+.vscode
+node_modules
+
 
 URL:
 intex.limbserver.com
