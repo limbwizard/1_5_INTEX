@@ -70,7 +70,7 @@
                             <button style="border: none; background: none; color: #222;" type="submit">Survey</button>
                         </form>
                     </a>
-                    <a><button style="background: none; border: none; color: #222;" type="button" href="dashboard.html">Dashboard</button></a>
+                    <a href="dashboard.html"><button style="background: none; border: none; color: #222;" type="button">Dashboard</button></a>
                     <a>
                         <form action="/surveyData" method="GET">
                             <button style="background: none; border: none; color: #222;" type="submit">Data Report</button>
@@ -82,7 +82,7 @@
             </div>
         </nav>
    <br><br>
-   <label><b><h1>Survey Data</h1></b></label>
+   <label><b><h1 style="text-align: center;">Survey Data</h1></b></label>
    <br><br>
     <!--Search for single record-->
    <form action="/singleRecord" method="GET">
@@ -91,7 +91,6 @@
     <button type="submit">Search</button>
   </form>
   <br><br>
-  <div id="survey-container">
    <table style="width: 100%; background-color: lightgray; border: 1px solid black;">
      <thead style="background-color: royalblue; color: white;">
        <tr>
@@ -168,6 +167,5 @@
       <% } %>
      </tbody>
    </table>
-  </div>
 </body>
 </html>

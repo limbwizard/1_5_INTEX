@@ -146,11 +146,11 @@ app.get("/singleRecord", (req, res) => {
 });
 
 //login process to check database for credentials
-app.get("/login", (req, res) => {
+app.post("/login", (req, res) => {
     knex.select()
         .from("users")
-        .where("username", req.query.username)
-        .where("password", req.query.password)
+        .where("username", req.body.username)
+        .where("password", req.body.password)
         .then((result) => {
             if (result.length > 0) {
                 res.render("accountManage");
